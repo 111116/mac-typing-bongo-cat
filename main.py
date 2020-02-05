@@ -5,7 +5,7 @@ import tkinter as tk
 
 # here defines left-hand keys
 # note that X isn't here
-leftkeys = set('54321`trewqgfdsabvcz');
+leftkeys = set('54321`trewqgfdsabvcz ');
 leftkeys.add("[tab]");
 leftkeys.add("[esc]");
 leftkeys.add("[left-cmd]");
