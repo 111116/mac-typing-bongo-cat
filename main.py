@@ -158,10 +158,10 @@ root.geometry("+300+300")
 
 # Store the PhotoImage to prevent early garbage collection
 # root.image0 = tk.PhotoImage(file="z.gif")
-root.image1 = tk.PhotoImage(file="a.gif")
-root.image2 = tk.PhotoImage(file="b.gif")
-root.image3 = tk.PhotoImage(file="c.gif")
-root.image4 = tk.PhotoImage(file="d.gif")
+root.image1 = tk.PhotoImage(file="aa.gif")
+root.image2 = tk.PhotoImage(file="bb.gif")
+root.image3 = tk.PhotoImage(file="cc.gif")
+root.image4 = tk.PhotoImage(file="dd.gif")
 # Display the image on a label
 label = tk.Label(root, image=root.image1)
 # Set the label background color to a transparent color
