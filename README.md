@@ -12,3 +12,8 @@ Images are captured from website bongo.cat by Eric Huber (@Externalizable). Art 
 python3 main.py
 ```
 
+## known bugs
+
+image ghosting.
+
+works fine for images with identical outlines.
