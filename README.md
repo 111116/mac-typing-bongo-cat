@@ -2,8 +2,13 @@
 
 A lovely cat that plays bongo whenever you type. (used as streaming overlay)
 
-works for macOS only.
+works for **macOS only**.
 
-Art courtesy of @StrayRogue
+Images are captured from website bongo.cat by Eric Huber (@Externalizable). Art courtesy of @StrayRogue. Meme by @DitzyFlama.
 
-Meme by @DitzyFlama
+## usage
+
+```bash
+python3 main.py
+```
+
