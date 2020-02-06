@@ -6,6 +6,12 @@ A lovely cat that types for you. It's used as streaming overlay, with a borderle
 
 works for **macOS only**. For Windows / Linux, check out [bongocat-osu](https://github.com/kuroni/bongocat-osu).
 
+## Prerequisites
+
+```bash
+python3 -m pip install pyobjc-framework-ApplicationServices pyobjc-framework-CoreText
+```
+
 ## Usage
 
 ```bash
