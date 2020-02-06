@@ -1,25 +1,43 @@
-# mac-cat
+# mac-typing-cat
 
-A lovely cat that plays bongo whenever you type. borderless, with transparent background, used as streaming overlay.
+<img src="example.jpg" alt="use example" style="zoom: 50%;" />
 
-works for **macOS only**. For Windows / Linux see [bongocat-osu](https://github.com/kuroni/bongocat-osu).
+A lovely cat that types for you. It's used as streaming overlay, with a borderless transparent background. You can also reskin it (and change the keys in `main.py`) to turn it into a mania-cat.
 
-## usage
+works for **macOS only**. For Windows / Linux, check out [bongocat-osu](https://github.com/kuroni/bongocat-osu).
+
+## Usage
 
 ```bash
 python3 main.py
 ```
 
-## known bugs
+If the program successfully launches but doesn't respond to global keypressed, retry with:
 
-image ghosting.
+```bash
+sudo python3 main.py
+```
+
+If the program quits with
+
+```plain
+ERROR: Unable to create event tap.
+```
+
+You need to allow `Terminal` to control your computer by going to `System Preferences.app > Security & Privacy > Privacy > Accessibility` and check on `Terminal`.
+
+Note that it's not floating on top of all windows automatically. You need to capture it separately in your streaming software (e.g. Window capture in OBS) and adjust its size / position.
+
+## Known bugs
+
+Image ghosting.
 
 works fine for images with identical outlines.
 
 ## License
 
-Images are captured from website bongo.cat by Eric Huber (@Externalizable). Art courtesy of @StrayRogue. Meme by @DitzyFlama.
+The cat image is from [bongo.cat](https://bongo.cat/) by Eric Huber (@Externalizable). Art courtesy of @StrayRogue. Meme by @DitzyFlama.
 
-Codes copied from other websites are copyrighted to corresponding authors.
+Codes copied from other websites or projects (see comment in code) may have their own license.
 
-Other stuff are released into public domain.
+Other parts are released into public domain.
