@@ -159,12 +159,17 @@ root.geometry("+300+300")
 
 # Store the PhotoImage to prevent early garbage collection
 # root.image0 = tk.PhotoImage(file="z.gif")
-root.image1 = tk.PhotoImage(file="aa.gif")
-root.image2 = tk.PhotoImage(file="bb.gif")
-root.image3 = tk.PhotoImage(file="cc.gif")
-root.image4 = tk.PhotoImage(file="dd.gif")
+root.image00 = tk.PhotoImage(file="res/00.gif")
+root.image01 = tk.PhotoImage(file="res/01.gif")
+root.image02 = tk.PhotoImage(file="res/02.gif")
+root.image10 = tk.PhotoImage(file="res/10.gif")
+root.image11 = tk.PhotoImage(file="res/11.gif")
+root.image12 = tk.PhotoImage(file="res/12.gif")
+root.image20 = tk.PhotoImage(file="res/20.gif")
+root.image21 = tk.PhotoImage(file="res/21.gif")
+root.image22 = tk.PhotoImage(file="res/22.gif")
 # Display the image on a label
-label = tk.Label(root, image=root.image1)
+label = tk.Label(root, image=root.image00)
 # Set the label background color to a transparent color
 label.config(bg='systemTransparent')
 label.pack()
@@ -201,13 +206,13 @@ def CGEventCallback(proxy, type, event, refcon):
     # label.configure(image=root.image0);
     # label.pack()
     if l==0 and r==0:
-    	label.configure(image=root.image1);
+    	label.configure(image=root.image00);
     if l==1 and r==0:
-        label.configure(image=root.image2);
+        label.configure(image=root.image20);
     if l==0 and r==1:
-        label.configure(image=root.image3);
+        label.configure(image=root.image01);
     if l==1 and r==1:
-        label.configure(image=root.image4);
+        label.configure(image=root.image21);
     label.pack()
     root.update();
     return event;
