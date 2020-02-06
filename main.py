@@ -139,6 +139,16 @@ def convertKeyCode(keyCode):
     }
     return a.get(keyCode, "[unknown]");
 
+modflag = {
+    "[left-shift]"   : 0b000000100000000000000010,
+    "[right-shift]"  : 0b000000100000000000000100,
+    "[left-ctrl]"    : 0b000001000000000000000001,
+    "[right-ctrl]"   : 0b000001000010000000000000,
+    "[left-option]"  : 0b000010000000000000100000,
+    "[right-option]" : 0b000010000000000001000000,
+    "[left-cmd]"     : 0b000100000000000000001000,
+    "[right-cmd]"    : 0b000100000000000000010000
+};
 
 
 # create the transparent window
@@ -175,6 +185,7 @@ label.config(bg='systemTransparent')
 label.pack()
 
 
+# keyboard area status
 l = 0
 r = 0
 
@@ -184,12 +195,18 @@ def CGEventCallback(proxy, type, event, refcon):
     if (type != kCGEventKeyDown and type != kCGEventFlagsChanged and type != kCGEventKeyUp):
         return event;
     keyCode = CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
+    keyname = convertKeyCode(keyCode);
     s = ""
     if (type == kCGEventKeyDown):
         s = "down";
     if (type == kCGEventKeyUp):
         s = "up";
-    keyname = convertKeyCode(keyCode);
+    if type == kCGEventFlagsChanged:
+        if (CGEventGetFlags(event) & modflag.get(keyname,0)) == modflag.get(keyname,1):
+            s = "down"
+        else:
+            s = "up"
+
     # calculate current keyboard state
     global l;
     global r;
