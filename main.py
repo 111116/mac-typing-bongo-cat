@@ -142,7 +142,8 @@ def convertKeyCode(keyCode):
 
 
 # create the transparent window
-# https://stackoverflow.com/questions/19080499/transparent-background-in-a-tkinter-window
+# Josselin https://stackoverflow.com/a/44296157
+# https://stackoverflow.com/questions/19080499/transparent-background-in-a-tkinter-window/44296157#44296157
 
 root = tk.Tk()
 # Hide the root window drag bar and close button
