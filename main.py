@@ -2,22 +2,48 @@
 from ApplicationServices import *
 import tkinter as tk
 
+# whether to dump all key events to stdout
+keylogger = False;
 
-# here defines left-hand keys
-# note that X isn't here
-leftkeys = set('54321`trewqgfdsabvcz ');
-leftkeys.add("[tab]");
-leftkeys.add("[esc]");
-leftkeys.add("[left-cmd]");
-leftkeys.add("[left-ctrl]");
-leftkeys.add("[left-shift]");
-leftkeys.add("[left-option]");
-leftkeys.add("[f1]");
-leftkeys.add("[f2]");
-leftkeys.add("[f3]");
-leftkeys.add("[f4]");
-leftkeys.add("[f5]");
-# all other keys are deemed right-hand keys
+
+# here defines four keyboard areas from left to right
+# special rules: x in l2 (for osu); [left] in r1 for other games
+
+l1keys = set('`1qaz2ws');
+l2keys = set('3edc4rfv5tgb x');
+r1keys = set('6yhn7ujm8ik,');
+r2keys = set('9ol.0p;/-[=]');
+
+l1keys.add("[tab]");
+l1keys.add("[esc]");
+l1keys.add("[caps]");
+l1keys.add("[left-ctrl]");
+l1keys.add("[left-shift]");
+l1keys.add("[left-option]");
+l1keys.add("[f1]");
+l1keys.add("[f2]");
+
+l2keys.add("[left-cmd]");
+l2keys.add("[f3]");
+l2keys.add("[f4]");
+l2keys.add("[f5]");
+
+r1keys.add("[right-cmd]");
+r1keys.add("[F6]");
+r1keys.add("[F7]");
+r1keys.add("[F8]");
+r1keys.add("[left]");
+
+r2keys.add("\\");
+r2keys.add("'");
+r2keys.add("[right-ctrl]");
+r2keys.add("[right-shift]");
+r2keys.add("[right-option]");
+r2keys.add("[F9]");
+r2keys.add("[F10]");
+r2keys.add("[F11]");
+r2keys.add("[F12]");
+# all other keys are automatically put into r2keys
 
 
 # translated from GiacomoLaw/Keylogger
@@ -169,25 +195,31 @@ root.geometry("+300+300")
 
 # Store the PhotoImage to prevent early garbage collection
 # root.image0 = tk.PhotoImage(file="z.gif")
-root.image00 = tk.PhotoImage(file="res/00.gif")
-root.image01 = tk.PhotoImage(file="res/01.gif")
-root.image02 = tk.PhotoImage(file="res/02.gif")
-root.image10 = tk.PhotoImage(file="res/10.gif")
-root.image11 = tk.PhotoImage(file="res/11.gif")
-root.image12 = tk.PhotoImage(file="res/12.gif")
-root.image20 = tk.PhotoImage(file="res/20.gif")
-root.image21 = tk.PhotoImage(file="res/21.gif")
-root.image22 = tk.PhotoImage(file="res/22.gif")
+root.image = [
+    tk.PhotoImage(file="res/00.gif"),
+    tk.PhotoImage(file="res/01.gif"),
+    tk.PhotoImage(file="res/02.gif")],[
+    tk.PhotoImage(file="res/10.gif"),
+    tk.PhotoImage(file="res/11.gif"),
+    tk.PhotoImage(file="res/12.gif")],[
+    tk.PhotoImage(file="res/20.gif"),
+    tk.PhotoImage(file="res/21.gif"),
+    tk.PhotoImage(file="res/22.gif")];
 # Display the image on a label
-label = tk.Label(root, image=root.image00)
+label = tk.Label(root, image=root.image[0][0])
 # Set the label background color to a transparent color
 label.config(bg='systemTransparent')
 label.pack()
 
 
 # keyboard area status
-l = 0
-r = 0
+l1 = 0
+l2 = 0
+r1 = 0
+r2 = 0
+# keyboard area status for display
+lstate = 0
+rstate = 0
 
 def CGEventCallback(proxy, type, event, refcon):
     global a;
@@ -196,6 +228,8 @@ def CGEventCallback(proxy, type, event, refcon):
         return event;
     keyCode = CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
     keyname = convertKeyCode(keyCode);
+    repeat = CGEventGetIntegerValueField(event, kCGKeyboardEventAutorepeat);
+    # whether key is pressed or released
     s = ""
     if (type == kCGEventKeyDown):
         s = "down";
@@ -206,30 +240,50 @@ def CGEventCallback(proxy, type, event, refcon):
             s = "down"
         else:
             s = "up"
-
-    # calculate current keyboard state
-    global l;
-    global r;
-    # simply ignoring modifiers and ignore overlaying multiple keys
-    if (keyname in leftkeys):
-        l = 0 if s=="up" else 1;
-    else:
-        r = 0 if s=="up" else 1;
-
-    # label.configure(image=root.image0)
-    # print(convertKeyCode(keyCode), s)
-    # update image
-    # label.pack_forget();
-    # label.configure(image=root.image0);
-    # label.pack()
-    if l==0 and r==0:
-    	label.configure(image=root.image00);
-    if l==1 and r==0:
-        label.configure(image=root.image20);
-    if l==0 and r==1:
-        label.configure(image=root.image01);
-    if l==1 and r==1:
-        label.configure(image=root.image21);
+    # which keyboard area is the key in
+    keyarea = 4; # 1/2/3/4, 4 by default
+    if keyname in l1keys:
+        keyarea = 1
+    if keyname in l2keys:
+        keyarea = 2
+    if keyname in r1keys:
+        keyarea = 3
+    if keyname in r2keys:
+        keyarea = 4
+    if keylogger:
+        print(keyname, s, "repeat" if repeat else "")
+    # current keyboard state
+    global l1;
+    global l2;
+    global r1;
+    global r2;
+    # ignore overlaying multiple keys in same area, to reduce sticky key caused by key conflict
+    newstate = 1 if s=="down" else 0;
+    if keyarea == 1:
+        l1 = newstate;
+    if keyarea == 2:
+        l2 = newstate;
+    if keyarea == 3:
+        r1 = newstate;
+    if keyarea == 4:
+        r2 = newstate;
+    # decide the state to display
+    global lstate;
+    if l1==0 and l2==0:
+        lstate = 0;
+    if l1==1 and l2==0 or l1==1 and l2==1 and s=="down" and keyarea==1:
+        lstate = 1;
+    if l1==0 and l2==1 or l1==1 and l2==1 and s=="down" and keyarea==2:
+        lstate = 2;
+    global rstate;
+    if r1==0 and r2==0:
+        rstate = 0;
+    if r1==1 and r2==0 or r1==1 and r2==1 and s=="down" and keyarea==3:
+        rstate = 1;
+    if r1==0 and r2==1 or r1==1 and r2==1 and s=="down" and keyarea==4:
+        rstate = 2;
+    # update image for display
+    label.configure(image=root.image[lstate][rstate]);
     label.pack()
     root.update();
     return event;
