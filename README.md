@@ -2,6 +2,8 @@
 
 <img src="example.jpg" alt="use example" style="zoom: 50%;" />
 
+**NOTICE: This code has been reported by many to have compatibility issues. Use at your own risk.**
+
 A lovely cat that types for you. It's used as streaming overlay, with a borderless transparent background. You can also reskin it (and change the keys in `main.py`) to turn it into a mania-cat.
 
 works for **macOS only**. For Windows / Linux, check out [bongocat-osu](https://github.com/kuroni/bongocat-osu).
