@@ -46,16 +46,16 @@ works fine for images with identical outlines.
 
 If your window is completly transparent or is not loading, Look for these lines of code and add # before the lines for the following:
 
-root.overrideredirect(True)
+`root.overrideredirect(True)
 
-root.wm_attributes("-topmost", True)
+root.wm_attributes("-topmost", True)`
 
 It should look like this.
 
-```# Hide the root window drag bar and close button
+`# Hide the root window drag bar and close button
 #root.overrideredirect(True)
 # Make the root window always on top
-#root.wm_attributes("-topmost", True)```
+#root.wm_attributes("-topmost", True)`
 
 If you do not have administrator access and your pip is replying with something related to: 
 Has No permission to Install to /Where/python3/is/installed/ then add the --user option to the end of the pip install packages module.
