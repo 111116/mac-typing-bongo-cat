@@ -42,6 +42,27 @@ Image ghosting.
 
 works fine for images with identical outlines.
 
+## Some Bug Fixes.
+
+If your window is completly transparent or is not loading, Look for these lines of code and add # before the lines for the following:
+
+root.overrideredirect(True)
+
+root.wm_attributes("-topmost", True)
+
+It should look like this.
+
+```# Hide the root window drag bar and close button
+#root.overrideredirect(True)
+# Make the root window always on top
+#root.wm_attributes("-topmost", True)```
+
+If you do not have administrator access and your pip is replying with something related to: 
+Has No permission to Install to /Where/python3/is/installed/ then add the --user option to the end of the pip install packages module.
+it should look like this:
+
+```python3 -m pip install pyobjc-framework-ApplicationServices pyobjc-framework-CoreText --user```
+
 ## License
 
 The cat image is from [bongo.cat](https://bongo.cat/) by Eric Huber (@Externalizable). Art courtesy of @StrayRogue. Meme by @DitzyFlama.
