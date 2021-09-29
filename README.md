@@ -46,9 +46,9 @@ works fine for images with identical outlines.
 
 If your window is completly transparent or is not loading, Look for these lines of code and add # before the lines for the following:
 
-`root.overrideredirect(True)
+`root.overrideredirect(True)`
 
-root.wm_attributes("-topmost", True)`
+`root.wm_attributes("-topmost", True)`
 
 It should look like this.
 
