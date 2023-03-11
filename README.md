@@ -44,6 +44,8 @@ works fine for images with identical outlines.
 
 ## Some Bug Fixes.
 
+For Apple M1 devices, you may need to set the `nobg` var to false, you can then use a chroma key on softwares like OBS to remove the colour. 
+
 If your window is completly transparent or is not loading, Look for these lines of code and add # before the lines for the following:
 
 `root.overrideredirect(True)`
