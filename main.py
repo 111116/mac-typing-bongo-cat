@@ -4,6 +4,7 @@ import tkinter as tk
 
 # whether to dump all key events to stdout
 keylogger = False;
+nobg = True;
 
 
 # here defines four keyboard areas from left to right
@@ -189,7 +190,10 @@ root.wm_attributes("-topmost", True)
 # Turn off the window shadow
 root.wm_attributes("-transparent", True)
 # Set the root window background color to a transparent color
-root.config(bg='systemTransparent')
+if nobg:
+    root.config(bg='systemTransparent')
+else: 
+    root.config(bg=#aaaaaa)
 
 root.geometry("+300+300")
 
